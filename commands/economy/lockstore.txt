@@ -1,0 +1,21 @@
+module.exports = {
+    name: 'lockstore',
+    description: 'open up server store',
+    aliases: [],
+    public: true,
+    async execute(bot, message, args, config) {
+
+        if(message.channel.id === "923061898281369650" || message.channel.id === "940880842761338930"){
+            message.delete();
+            return message.channel.send("Use this cmd in bots").then(msg => {
+              setTimeout(() => msg.delete(), 5000)
+            })
+            .catch();}
+
+    let embed = new Discord.MessageEmbed()
+    .setColor(config.color)
+    .setTitle(`Homies - Lock Store`).setThumbnail("https://cdn.discordapp.com/attachments/861614593444937739/958954846340382730/output-onlinepngtools.png")
+    .setDescription(`Welcome to the Lock Store! Here you can buy locks to safe guard your points.\nPls note that buying a lock while having a lock will remove the previous lock!\n\n[1] 3 Hours | Lock A - **1,000** points\n[2] 6 Hours | Lock B - **5,000** points\n[3] 1 Day | Lock C - **10,000** points\n[4] 2 Days | Lock D - **20,000** points\n[5] 5 Days | Lock E - **30,000** points\n・\n・\n\nUse _.buylock [item number]_ to purchase\nEg: .buylock 2`)
+    message.channel.send({ embeds: [embed] });
+    }
+}

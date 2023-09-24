@@ -1,0 +1,32 @@
+{
+  "name": "homies-stat-bot",
+  "version": "3.1.8",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "canvacord": "^5.4.1",
+    "discord.js": "^13.1.0",
+    "dotenv": "^16.3.1",
+    "fs": "*",
+    "mongoose": "^5.13.20",
+    "ms": "*",
+    "ordinal": "^1.0.3",
+    "os": "^0.1.2",
+    "pretty-ms": "^7.0.1",
+    "pretty-seconds": "^2.0.0"
+  },
+  "engines": {
+    "node": "16.x",
+    "npm": "7.x"
+  },
+  "repository": {
+    "url": ""
+  },
+  "license": "MIT",
+  "keywords": [
+    "node"
+  ]
+}

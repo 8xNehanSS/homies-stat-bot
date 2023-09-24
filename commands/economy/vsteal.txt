@@ -1,0 +1,66 @@
+const ms = require('ms');
+const prettyMilliseconds = require('pretty-ms');
+module.exports = {
+    name: 'vsteal',
+    description: 'Steal points from another user',
+    aliases: [],
+    public: true,
+    async execute(bot, message, args, config) {
+
+      if(message.channel.id === "923061898281369650" || message.channel.id === "940880842761338930"){
+        message.delete();
+        return message.channel.send("Use this cmd in bots").then(msg => {
+          setTimeout(() => msg.delete(), 5000)
+        })
+        .catch();}
+
+    let member = await message.guild.members.fetch(message.mentions.users.first())
+    if(!member) return message.channel.send(`User was not found.`)
+
+    let author = await User.findOne({ guildID: message.guild.id, userID: message.author.id });
+    let loc = await User.findOne({ guildID: message.guild.id, userID: member.id });
+    if(author._time3 == null || author.messages - author._time3 >= "150") {
+    if(loc.bio === "A"){if(config.LA - (Date.now() - loc.biotime) > 0){return message.channel.send("Stealing failed user has a locked the vault")}}
+    if(loc.bio === "B"){if(config.LB - (Date.now() - loc.biotime) > 0){return message.channel.send("Stealing failed user has a locked the vault")}}
+    if(loc.bio === "C"){if(config.LC - (Date.now() - loc.biotime) > 0){return message.channel.send("Stealing failed user has a locked the vault")}}
+    if(loc.bio === "D"){if(config.LD - (Date.now() - loc.biotime) > 0){return message.channel.send("Stealing failed user has a locked the vault")}}
+    if(loc.bio === "E"){if(config.LE - (Date.now() - loc.biotime) > 0){return message.channel.send("Stealing failed user has a locked the vault")}}
+
+
+    if(!loc) return bot.nodb(member.user)
+    const winlose = Math.floor(Math.random() * 100) + 1;
+    console.log(winlose)
+    if(winlose >= 70){
+    if(loc.vmoney < 5000) return message.channel.send(`Robbing failed. They're vault is empty.`)
+    if(author.userID == member.id) return message.channel.send(`You cannot steal points from yourself! Dumb!`)
+    if(member.user.bot) return message.channel.send(`Bots are not humans.`)
+    const moneyhas =  loc.vmoney;
+    const stealperc = Math.floor(Math.random() * 30) + 10;
+    const stealval1 = moneyhas * stealperc / 100;
+    var stealval = Math.round(stealval1);
+    author.money += Math.floor(parseInt(stealval));
+    loc.vmoney -= Math.floor(parseInt(stealval));
+    const msgamt = author.messages;
+    author._time3 = msgamt;
+    author.save(); loc.save()
+    message.channel.send(`**${message.author} is robbing..**`)
+.then((msg)=> {
+  setTimeout(function(){
+    msg.edit(`**${message.author}** stole **${stealval.toLocaleString()}** points from **${member.user}**'s vault`);
+  }, 5000)
+});} else {
+  author.vmoney -= Math.floor(parseInt(100000));
+  const msgamt = author.messages;
+  author._time3 = msgamt;
+  author.save();
+  message.channel.send(`**${message.author} is robbing..**`)
+.then((msg)=> {
+setTimeout(function(){
+  msg.edit(`You got caught stealing and paid a fine of **100000** points from vault`);
+}, 1000)
+});} 
+    
+    } else {
+      const msgneed = (author._time3 + 150) - author.messages;
+      message.channel.send(`Send **${msgneed}** messages in general before stealing from vault again!`)}}
+}

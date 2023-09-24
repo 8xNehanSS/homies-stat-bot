@@ -1,0 +1,19 @@
+module.exports = {
+  name: 'bio',
+  description: 'Change biography.',
+  aliases: [],
+  public: false,
+  async execute(bot, message, args, config) {
+    let data = await User.findOne({ guildID: message.guild.id, userID: message.author.id });
+    if(!data) return bot.nodb();
+
+    let context = args.slice(0).join(` `)
+    
+    if(!context){ data.bio = `<prefix>bio [text]`; data.save(); message.react("🎉"); return; }
+
+    if(context.length >= 200) return message.reply(`Unfortunately, I cannot give you such a description. It has ${context.length} letters.`)
+
+    message.channel.send(`You have successfully changed your bio to **${context}**`)
+    data.bio = context; data.save();
+  }
+}

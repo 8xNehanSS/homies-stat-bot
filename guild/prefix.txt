@@ -1,0 +1,19 @@
+module.exports = {
+    name: 'prefix',
+    description: 'Change bot prefix.',
+    aliases: ["set-prefix"],
+    public: false,
+    async execute(bot, message, args, config) {
+        if(!args[0]) return message.reply(`Enter the prefix you want`)
+        if(args[0].length > 5) return message.reply(`I cannot put a prefix longer than 5 characters`)
+
+        let data = await Guild.findOne({ guildID: message.guild.id })
+
+        let embed = new Discord.MessageEmbed()
+        .setColor(config.color)
+        .setDescription(`You have successfully changed the bot prefix to \`${args[0]}\``)
+        message.channel.send(embed)
+
+        data.prefix = args[0]; data.save();
+    }
+  }

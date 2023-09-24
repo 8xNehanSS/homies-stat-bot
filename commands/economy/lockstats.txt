@@ -1,0 +1,30 @@
+const prettyMilliseconds = require('pretty-ms');
+module.exports = {
+    name: 'lock',
+    description: 'view ur points.',
+    aliases: [],
+    public: true,
+    async execute(bot, message, args, config) {
+
+      if(message.channel.id === "923061898281369650" || message.channel.id === "940880842761338930"){
+        message.delete();
+        return message.channel.send("Use this cmd in bots").then(msg => {
+          setTimeout(() => msg.delete(), 5000)
+        })
+        .catch();}
+
+      let member = await message.guild.members.fetch(message.author)
+      if(member.user.bot) return message.channel.send(`Bots are not humans.. or are they?`)
+      let data = await User.findOne({ guildID: message.guild.id, userID: member.user.id })
+  
+      if(!data) return bot.nodb(member.user);
+      if(data.bio === "A"){if(config.LA - (Date.now() - data.biotime) > 0){return message.channel.send(`Your lock has **${prettyMilliseconds(config.LA - (Date.now() - data.biotime), {secondsDecimalDigits: 0})}** time left`)}}
+      if(data.bio === "B"){if(config.LB - (Date.now() - data.biotime) > 0){return message.channel.send(`Your lock has **${prettyMilliseconds(config.LB - (Date.now() - data.biotime), {secondsDecimalDigits: 0})}** time left`)}}
+      if(data.bio === "C"){if(config.LC - (Date.now() - data.biotime) > 0){return message.channel.send(`Your lock has **${prettyMilliseconds(config.LC - (Date.now() - data.biotime), {secondsDecimalDigits: 0})}** time left`)}}
+      if(data.bio === "D"){if(config.LD - (Date.now() - data.biotime) > 0){return message.channel.send(`Your lock has **${prettyMilliseconds(config.LD - (Date.now() - data.biotime), {secondsDecimalDigits: 0})}** time left`)}}
+      if(data.bio === "E"){if(config.LE - (Date.now() - data.biotime) > 0){return message.channel.send(`Your lock has **${prettyMilliseconds(config.LE - (Date.now() - data.biotime), {secondsDecimalDigits: 0})}** time left`)}}
+
+      message.channel.send(`Your vault does not have a lock! Check **.lockstore** to buy`)
+    }
+  }
+  

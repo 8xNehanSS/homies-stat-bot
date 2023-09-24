@@ -1,0 +1,56 @@
+module.exports = {
+    name: 'buylock',
+    description: 'Buy items from store',
+    aliases: [],
+    public: true,
+    async execute(bot, message, args, config) {
+
+        if(message.channel.id === "923061898281369650" || message.channel.id === "940880842761338930"){
+            message.delete();
+            return message.channel.send("Use this cmd in bots").then(msg => {
+              setTimeout(() => msg.delete(), 5000)
+            })
+            .catch();}
+
+    let author = await User.findOne({ guildID: message.guild.id, userID: message.author.id });
+            
+    if(args[0] != null){
+
+    if(args[0] === "1") {if(author.money < "1000") return message.channel.send(`You don't have enough points.`)
+    author.money -= Math.floor(parseInt("1000"));
+    author.bio = "A";
+    author.biotime = Date.now();
+    author.save();
+    message.channel.send(`Successfully bought **Lock A**`)}
+
+    if(args[0] === "2") {
+    if(author.money < "5000") return message.channel.send(`You don't have enough points.`)
+    author.money -= Math.floor(parseInt("5000"));
+    author.bio = "B";
+    author.biotime = Date.now();
+    author.save();
+    message.channel.send(`Successfully bought **Lock B**`)}
+
+    if(args[0] === "3") {if(author.money < "10000") return message.channel.send(`You don't have enough points.`)
+    author.money -= Math.floor(parseInt("10000"));
+    author.bio = "C";
+    author.biotime = Date.now();
+    author.save();
+    message.channel.send(`Successfully bought **Lock C**`)}
+
+    if(args[0] === "4") {if(author.money < "20000") return message.channel.send(`You don't have enough points.`)
+    author.money -= Math.floor(parseInt("20000"));
+    author.bio = "D";
+    author.biotime = Date.now();
+    author.save();
+    message.channel.send(`Successfully bought **Lock D**`)}
+
+    if(args[0] === "5") {if(author.money < "30000") return message.channel.send(`You don't have enough points.`)
+    author.money -= Math.floor(parseInt("30000"));
+    author.bio = "E";
+    author.biotime = Date.now();
+    author.save();
+    message.channel.send(`Successfully bought **Lock E**`)}
+} else {message.channel.send("Enter item number!")}
+}}
+
