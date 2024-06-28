@@ -5,17 +5,18 @@ module.exports = {
     public: true,
     async execute(bot, message, args, config) {
     
-    let autho = await message.guild.members.fetch(message.author)
-    if (!autho.roles.cache.has('923061813006975056')) return message.react("⛔")  
-    let member1 = await message.guild.members.fetch(message.mentions.users.first())
-    
-    if(!member1) return message.reply(`User was not found.`)
-     
-    if(member1.user.bot) return message.reply(`Bots are not humans.`)
-    if (member1.roles.cache.has('939834272251011124')) return message.react("❌")
-    let picrole = message.guild.roles.cache.get("939798434544779315");
-      member1.roles.add(picrole)
-    message.react("📸")
+    let member = await message.guild.members.fetch(message.mentions.users.first() || message.author)
+      if(member.user.bot) return message.channel.send(`Bots are not humans.. or are they?`)
+      let data = await User.findOne({ guildID: message.guild.id, userID: member.user.id })
+  
+      if(!data) return bot.nodb(member.user);
+        if(data.level<10) return message.react("⛔");
+
+        // Add the role if the mentioned user's level is 10 or higher
+        let picrole = message.guild.roles.cache.get("939798434544779315");
+        member.roles.add(picrole);
+        message.react("📸");
+        message.channel.send(`Success`);
     
 
 }
