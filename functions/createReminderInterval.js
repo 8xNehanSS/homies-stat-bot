@@ -1,11 +1,12 @@
 //reminders
 async function createReminderInterval(reminders, bot, Discord) {
+
   setInterval(async () => {
     const Response1 = Math.floor(Math.random() * reminders.length);
 
     const exampleEmbed = new Discord.MessageEmbed()
       .setColor("RANDOM")
-      .setDescription(`${Responses1[Response1]}`)
+      .setDescription(`${reminders[Response1]}`)
       .setFooter({ text: `Reminders - LK Homies` })
       .setTimestamp();
     bot.channels.fetch("923061889766940672").then((channel) =>
