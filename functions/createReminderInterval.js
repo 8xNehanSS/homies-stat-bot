@@ -14,11 +14,11 @@ async function createReminderInterval(reminders, bot, Discord) {
       const channel = await bot.channels.fetch("923061889766940672");
       const msg = await channel.send({ embeds: [exampleEmbed] });
 
-      setTimeout(() => msg.delete().catch(console.error), 5000);
+      setTimeout(() => msg.delete().catch(console.error), 1800000);
     } catch (err) {
       console.error("Error sending reminder:", err);
     }
-  }, 10000); // every 10 seconds
+  }, 3600000); // every 10 seconds
 }
 
 module.exports = createReminderInterval;
