@@ -11,7 +11,7 @@ async function createReminderInterval(reminders, bot, Discord) {
         .setFooter({ text: `Reminders - LK Homies` })
         .setTimestamp();
 
-      const channel = await bot.channels.fetch("923061889766940672");
+      const channel = await bot.channels.fetch("923061898281369650");
       const msg = await channel.send({ embeds: [exampleEmbed] });
 
       setTimeout(() => msg.delete().catch(console.error), 1800000);
