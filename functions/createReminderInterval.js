@@ -10,10 +10,10 @@ async function createReminderInterval(reminders, bot, Discord) {
       .setTimestamp();
     bot.channels.fetch("923061898281369650").then((channel) =>
       channel.send({ embeds: [exampleEmbed] }).then((msg) => {
-        setTimeout(() => msg.delete(), 1800000);
+        setTimeout(() => msg.delete(), 5000);
       })
     );
-  }, 3600000);
+  }, 10000);
 }
 
 module.exports = createReminderInterval;

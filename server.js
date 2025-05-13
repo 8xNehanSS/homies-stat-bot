@@ -93,9 +93,11 @@ bot.on("ready", () => {
   const reminders = ["Use `.pic` to get picture permissions!"];
   allFunctions.createReminderInterval(reminders);
 });
+
 bot.on("guildMemberAdd", (member) =>
   allFunctions.guildMemberAdd(member, Discord, ordinal)
 );
+
 bot.on("guildMemberRemove", (member) =>
   allFunctions.guildMemberRemove(member, User)
 );
