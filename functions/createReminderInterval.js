@@ -1,20 +1,24 @@
-//reminders
 async function createReminderInterval(reminders, bot, Discord) {
+  if (!reminders || reminders.length === 0) return;
 
   setInterval(async () => {
-    const Response1 = Math.floor(Math.random() * reminders.length);
+    try {
+      const Response1 = Math.floor(Math.random() * reminders.length);
 
-    const exampleEmbed = new Discord.MessageEmbed()
-      .setColor("RANDOM")
-      .setDescription(`${reminders[Response1]}`)
-      .setFooter({ text: `Reminders - LK Homies` })
-      .setTimestamp();
-    bot.channels.fetch("923061889766940672").then((channel) =>
-      channel.send({ embeds: [exampleEmbed] }).then((msg) => {
-        setTimeout(() => msg.delete(), 5000);
-      })
-    );
-  }, 10000);
+      const exampleEmbed = new Discord.MessageEmbed()
+        .setColor("RANDOM")
+        .setDescription(`${reminders[Response1]}`)
+        .setFooter({ text: `Reminders - LK Homies` })
+        .setTimestamp();
+
+      const channel = await bot.channels.fetch("923061889766940672");
+      const msg = await channel.send({ embeds: [exampleEmbed] });
+
+      setTimeout(() => msg.delete().catch(console.error), 5000);
+    } catch (err) {
+      console.error("Error sending reminder:", err);
+    }
+  }, 10000); // every 10 seconds
 }
 
 module.exports = createReminderInterval;

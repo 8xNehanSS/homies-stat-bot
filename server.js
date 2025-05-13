@@ -91,7 +91,7 @@ bot.on("ready", () => {
 
   //reminders
   const reminders = ["Use `.pic` to get picture permissions!"];
-  allFunctions.createReminderInterval(reminders);
+  allFunctions.createReminderInterval(reminders, bot, Discord);
 });
 
 bot.on("guildMemberAdd", (member) =>
