@@ -1,5 +1,6 @@
 global.Discord = require("discord.js");
 global.mongoose = require("mongoose");
+const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config();
 const ms = require("ms");
@@ -109,6 +110,27 @@ bot.on("messageCreate", (message) => {
 });
 
 bot.login(process.env.token);
+
+// Express server for health checks (required for Koyeb deployment)
+const app = express();
+const PORT = process.env.PORT || 8000;
+
+app.get('/', (req, res) => {
+  res.json({
+    status: 'Bot is running',
+    uptime: process.uptime(),
+    botStatus: bot.readyAt ? 'Connected' : 'Connecting...',
+    timestamp: new Date().toISOString()
+  });
+});
+
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'healthy' });
+});
+
+app.listen(PORT, () => {
+  console.log(`[✅ Web Server] Health check server running on port ${PORT}`);
+});
 
 const process1 = require("process");
 
