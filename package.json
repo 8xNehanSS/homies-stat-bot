@@ -19,8 +19,7 @@
     "pretty-seconds": "^2.0.0"
   },
   "engines": {
-    "node": "16.x",
-    "npm": "7.24.2"
+    "node": "16.x"
   },
   "repository": {
     "url": ""
